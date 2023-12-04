@@ -15,7 +15,7 @@ messageOne.textContent = 'From Javascript'
 weatherForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     const location = search.value
-    const weatherUrl = 'http://localhost:3000/weather?address=' + location;
+    const weatherUrl = '/weather?address=' + location;
     messageOne.textContent = 'Loading...';
     messageTwo.textContent = ' ';
     fetch(weatherUrl).then((response) => {
