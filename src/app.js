@@ -5,7 +5,7 @@ const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 const app = express();
-
+const port = process.env.PORT || 3000
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname,'../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials');
@@ -23,8 +23,8 @@ app.get('', (req,res) =>{
 }) // dva argumenta dohvatamo url i funkcija  takodje parametre prima request i response sta trazimo i odgovor  
 
 app.get('/help', (req,res) =>{
-    res.render('index',{    
-        title:"This is a help page",
+    res.render('help',{    
+        title:"Help",
         name: 'Marko Jurjevic'
 
     })
@@ -32,32 +32,32 @@ app.get('/help', (req,res) =>{
 
 app.get('/about', (req,res) =>{
     res.render('about',{
-        title:'This is a about page',
+        title:'About',
         name: 'Marko Jurjevic'
         
     })
 }) 
 
-app.get('/myPage',(req,res) => {
-    res.render('myPage',{
-        title:'Ovo je moja strana',
-        error:'Page not found',
-        name:'Marko Jurjevic'
-    })
-})
+// app.get('/myPage',(req,res) => {
+//     res.render('myPage',{
+//         title:'Ovo je moja strana',
+//         error:'Page not found',
+//         name:'Marko Jurjevic'
+//     })
+// })
 
-app.get('/myPage/*',(req,res) =>{
-    res.send('My page article is not found')
-})
+// app.get('/myPage/*',(req,res) =>{
+//     res.send('My page article is not found')
+// })
 app.get('/weather', (req,res) =>{
     
     if(!req.query.address){ //objekte pravi koje su u urlu sto smo dodali
         return res.send({
-            error:'This is an error message'
+            error:'You must provide an address!'
         })
     } 
 
-    geocode(req.query.adress,(error,{latitude, longitude, location}) =>{
+    geocode(req.query.address,(error,{ latitude, longitude, location}) =>{
         if(error)
         {
             return res.send({error})
@@ -94,7 +94,7 @@ app.get('/help/*', (req,res) =>{
     res.render('404',{
         title:'404',
         name:'Marko Jurjevic',
-        errorMessage:'Help article nije nadjen'    
+        errorMessage:'Help article not found'    
     })
 })
 
@@ -110,6 +110,6 @@ app.get('*',(req,res) =>{ //koristimo * za sve ostale urlove
 
 
 
-app.listen(3000, () =>{
-    console.log('Server is up on port 3000');
+app.listen(port, () =>{
+    console.log('Server is up on port ' + port);
 }) //startuje server a drugo je callback koja ce da radi nesto dok je startovan server

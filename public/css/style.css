@@ -1,15 +1,21 @@
+
 body{
    color: #333333;
    font-family: Arial;
-   width: 100%;
-   margin: 0;
+   max-width: 650px;
+   margin: 0 auto;
+   padding: 0 16px;
    display: flex;
    flex-direction: row;
-   min-height:1000vh;
+   min-height:80vh;
 }
 
 .main-content {
     flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 header{
@@ -58,4 +64,7 @@ button{
     color: white;
     padding: 8px;
 
+}
+#paragraph{
+    text-align: center;
 }
